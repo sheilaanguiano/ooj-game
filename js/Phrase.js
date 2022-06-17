@@ -7,10 +7,10 @@ class Phrase {
     }
     /**
     *  Display phrase on game board
-    * @param   {string}   phrase - 
+    * 
     */
     
-    addPhraseToDisplay(phrase){
+    addPhraseToDisplay(){
         let phraseList = document.getElementsByTagName('UL')[0];
         let phraseArr = this.phrase.split('');
      

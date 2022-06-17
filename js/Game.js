@@ -1,6 +1,3 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Game.js */
 class Game {
     constructor(){
         this.missed = 0;
@@ -33,8 +30,25 @@ class Game {
      * @return {Object} Phrase object chosen to be used
      */
     getRandomPhrase(phrases){
-        let pharse = game.phrases[Math.floor(Math.random()* game.phrases.length)];
-        return pharse;
+        let phrase = game.phrases[Math.floor(Math.random() * game.phrases.length)];
+        return phrase;
     };
+
+    /**
+    * Begins game by selecting a random phrase and displaying it to user
+    */
+    startGame(){
+        //1. Hides the start overlay
+      
+       
+
+         //2.Calls the getRandomPhrase() to select a Phrase Object from the Game object'a array of phrases and then adds the phrase to the gameboard by calling the addPhraseToDisplay() on the selected Phrase Object.
+         this.activePhrase = new Phrase(this.getRandomPhrase().phrase); 
+
+        //3. The Selected Phrase should be stored in the Game's activePhrase property
+
+       this.activePhrase.addPhraseToDisplay(); 
+       
+    }
     
 }
