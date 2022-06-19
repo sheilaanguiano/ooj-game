@@ -4,23 +4,23 @@ class Game {
         this.phrases = [
             {
                 index: 0,
-                phrase: `Come with me if you want to live`
+                phrase: `hello test`
             },
             {
                 index: 1,
-                phrase: `Identity theft is not a joke jim`
+                phrase: `Hola mi test`
             },
             {
                 index: 2,
-                phrase: `human are such easy preys`
+                phrase: `short test`
             },
             {
                 index: 3,
-                phrase: `they are comming to get you barbara`
+                phrase: `Hello world`
             },
             {
                 index: 4,
-                phrase: `what do you mean they lie in the movie`
+                phrase: `Helloween`
             },
         ]
         this.activePhrase = null;
@@ -38,17 +38,52 @@ class Game {
     * Begins game by selecting a random phrase and displaying it to user
     */
     startGame(){
-        //1. Hides the start overlay
-      
-       
-
-         //2.Calls the getRandomPhrase() to select a Phrase Object from the Game object'a array of phrases and then adds the phrase to the gameboard by calling the addPhraseToDisplay() on the selected Phrase Object.
-         this.activePhrase = new Phrase(this.getRandomPhrase().phrase); 
-
-        //3. The Selected Phrase should be stored in the Game's activePhrase property
-
-       this.activePhrase.addPhraseToDisplay(); 
-       
+        this.activePhrase = new Phrase(this.getRandomPhrase().phrase); 
+        this.activePhrase.addPhraseToDisplay(); 
     }
+
+    /**
+    * Checks for winning move
+    * @return {boolean} True if game has been won, false if game wasn't
+    won
+    */
+    checkForWin() {
+        // By comparing the size of both HTML collection, the only way to win
+        // is when the show list has the same length as the letter one.
+        let letterList = document.getElementsByClassName(`letter`);
+        let showList = document.getElementsByClassName(`show`);
+
+        return letterList.length === showList.length;
+    };
+
+    /**
+    * Increases the value of the missed property
+    * Removes a life from the scoreboard
+    * Checks if player has remaining lives and ends game if player is out
+    */
+    // removeLife(){
+    //     let [...lives] = document.getElementsByClassName('tries').length;
+
+    //     if(!this.phrase.checkLetter){
+    //         missedCounter = [...lives].pop();
+    //         this.missed = missedCounter.length;
+    //     }
+
+    //     if (this.missed = 5){
+    //         this.game.gameOver();
+    //     }
+
+    // };
+
+
+    /**
+    * Displays game over message
+    * @param {boolean} gameWon - Whether or not the user won the game
+    */
+    gameOver(gameWon) {};
+
+
+
+
     
 }
