@@ -13,14 +13,9 @@ startBtn.addEventListener('click', e => {
     game.startGame();
 
     console.log(game.activePhrase);
-    console.log( game.activePhrase.showMatchedLetter('e'));
-   
-    let letterList = document.getElementsByClassName(`letter`);
-    let showList = document.getElementsByClassName(`show`);
-    
-   console.log(letterList.length);
-   console.log(showList.length);
+
   
+
 });
 
 

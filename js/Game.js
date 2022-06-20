@@ -61,26 +61,40 @@ class Game {
     * Removes a life from the scoreboard
     * Checks if player has remaining lives and ends game if player is out
     */
-    // removeLife(){
-    //     let [...lives] = document.getElementsByClassName('tries').length;
+    removeLife(){
+        const scoreboard = document.getElementsByTagName('ol')[0];
+        this.missed = scoreboard.children.length
 
-    //     if(!this.phrase.checkLetter){
-    //         missedCounter = [...lives].pop();
-    //         this.missed = missedCounter.length;
-    //     }
+        if(this.missed > 0){
+            scoreboard.lastElementChild.remove();
 
-    //     if (this.missed = 5){
-    //         this.game.gameOver();
-    //     }
+        } else {
+            let overlay = document.getElementById('overlay');
+            let msg = document.getElementById('game-over-message');
 
-    // };
+            overlay.style.display ='initial';
+            msg.innerText = 'Sorry, better luck next time!!';
+            overlay.classList.remove('start');
+            overlay.classList.add('lose');
+        }
+    };
 
 
     /**
     * Displays game over message
     * @param {boolean} gameWon - Whether or not the user won the game
     */
-    gameOver(gameWon) {};
+    gameOver(gameWon) {
+        let overlay = document.getElementById('overlay');
+        let msg = document.getElementById('game-over-message');
+
+        if(gameWon){
+            msg.innerText = 'You WON!!';
+            overlay.classList.remove('start');
+            overlay.classList.add('win');
+        } 
+
+    };
 
 
 
