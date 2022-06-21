@@ -48,12 +48,14 @@ class Game {
     won
     */
     checkForWin() {
-        // By comparing the size of both HTML collection, the only way to win
-        // is when the show list has the same length as the letter one.
-        let letterList = document.getElementsByClassName(`letter`);
-        let showList = document.getElementsByClassName(`show`);
+        let letterList = document.getElementsByClassName('letter');
+        let showList = document.getElementsByClassName('show');
 
-        return letterList.length === showList.length;
+        // if(letterList.length > showList.length){
+        //     return true;
+        // } 
+            console.log('You won')
+
     };
 
     /**
@@ -65,13 +67,18 @@ class Game {
         const scoreboard = document.getElementsByTagName('ol')[0];
         this.missed = scoreboard.children.length
 
-        if(this.missed > 0){
+        if(this.missed > 1){
             scoreboard.lastElementChild.remove();
 
         } else {
-            let overlay = document.getElementById('overlay');
+            const overlay = document.getElementById('overlay');
+            const phrase = document.getElementById('phrase');
+            const qwerty = document.getElementById('qwerty');
+
             let msg = document.getElementById('game-over-message');
 
+            phrase.style.display ='none';
+            qwerty.style.display = 'none';
             overlay.style.display ='initial';
             msg.innerText = 'Sorry, better luck next time!!';
             overlay.classList.remove('start');
@@ -96,8 +103,27 @@ class Game {
 
     };
 
+    /**
+    * Handles onscreen keyboard button clicks
+    * @param (HTMLButtonElement) button - The clicked button element
+    */
+    handleInteraction(button) {
+        let clicked = button.target;
+        let letter = button.target.innerText;
+   
+        if(game.activePhrase.checkLetter(letter)){
+            clicked.classList.add('disabled', 'chosen');
+            game.activePhrase.showMatchedLetter(letter);
+            game.checkForWin();
+           
+            
+        }else{
+            clicked.classList.add('disabled', 'wrong');
+            game.removeLife();
+
+        }
 
 
-
-    
+    };
+   
 }
