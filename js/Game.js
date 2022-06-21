@@ -48,14 +48,10 @@ class Game {
     won
     */
     checkForWin() {
-        let letterList = document.getElementsByClassName('letter');
-        let showList = document.getElementsByClassName('show');
-
-        // if(letterList.length > showList.length){
-        //     return true;
-        // } 
-            console.log('You won')
-
+        let phraseCounter = document.getElementsByClassName('letter').length;
+        let showCounter = document.getElementsByClassName('show').length;
+      
+        return phraseCounter === showCounter;
     };
 
     /**
@@ -69,20 +65,8 @@ class Game {
 
         if(this.missed > 1){
             scoreboard.lastElementChild.remove();
-
-        } else {
-            const overlay = document.getElementById('overlay');
-            const phrase = document.getElementById('phrase');
-            const qwerty = document.getElementById('qwerty');
-
-            let msg = document.getElementById('game-over-message');
-
-            phrase.style.display ='none';
-            qwerty.style.display = 'none';
-            overlay.style.display ='initial';
-            msg.innerText = 'Sorry, better luck next time!!';
-            overlay.classList.remove('start');
-            overlay.classList.add('lose');
+        } else{
+            game.gameOver(false);
         }
     };
 
@@ -95,13 +79,53 @@ class Game {
         let overlay = document.getElementById('overlay');
         let msg = document.getElementById('game-over-message');
 
-        if(gameWon){
+        overlay.style.display ='flex';
+      
+        if(gameWon) {
             msg.innerText = 'You WON!!';
             overlay.classList.remove('start');
             overlay.classList.add('win');
-        } 
+            game.resetGame();
 
+        } else {
+            msg.innerText = 'Sorry, better luck next time!!';
+            overlay.classList.remove('start');
+            overlay.classList.add('lose');
+            game.resetGame();
+        }
     };
+
+    /**
+    * Resets the phrase unordered List
+    * Resets the hearts to 5
+    * Clears the clases from the qwerty
+    */
+
+    resetGame(){
+        const phraseList = document.getElementsByTagName('UL')[0];
+        const scoreboard = document.getElementsByTagName('ol')[0];
+        let chosenKeys = document.getElementsByClassName('chosen');
+        let wrongKeys = document.getElementsByClassName('wrong');
+        chosenKeys = [...chosenKeys];
+        wrongKeys =[...wrongKeys];
+        
+       phraseList.innerHTML = '';
+       scoreboard.innerHTML = `
+            <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
+            <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
+            <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
+            <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
+            <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
+       `;
+
+        chosenKeys.forEach( key =>{
+            key.classList.remove('disabled', 'chosen');        
+        })
+
+        wrongKeys.forEach( key =>{
+            key.classList.remove('disabled', 'wrong');        
+        })
+    }
 
     /**
     * Handles onscreen keyboard button clicks
@@ -114,16 +138,15 @@ class Game {
         if(game.activePhrase.checkLetter(letter)){
             clicked.classList.add('disabled', 'chosen');
             game.activePhrase.showMatchedLetter(letter);
-            game.checkForWin();
-           
-            
-        }else{
+            if(game.checkForWin()){
+                game.gameOver(true);
+            }
+               
+        } else {
             clicked.classList.add('disabled', 'wrong');
             game.removeLife();
-
         }
-
-
     };
    
+    
 }
