@@ -86,38 +86,42 @@ class Game {
             overlay.classList.remove('start');
             overlay.classList.add('win');
             game.resetGame();
+            
 
         } else {
             msg.innerText = 'Sorry, better luck next time!!';
             overlay.classList.remove('start');
             overlay.classList.add('lose');
             game.resetGame();
+         
         }
     };
 
     /**
-    * Resets the phrase unordered List
-    * Resets the hearts to 5
-    * Clears the clases from the qwerty
+    * Helper reset functions
     */
-
-    resetGame(){
+    resetPhrase(){
         const phraseList = document.getElementsByTagName('UL')[0];
+        phraseList.innerHTML = '';
+    }
+    resetHearts(){
         const scoreboard = document.getElementsByTagName('ol')[0];
-        let chosenKeys = document.getElementsByClassName('chosen');
-        let wrongKeys = document.getElementsByClassName('wrong');
-        chosenKeys = [...chosenKeys];
-        wrongKeys =[...wrongKeys];
-        
-       phraseList.innerHTML = '';
-       scoreboard.innerHTML = `
+
+        scoreboard.innerHTML = `
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
        `;
+    }
 
+    resetQwerty(){
+        let chosenKeys = document.getElementsByClassName('chosen');
+        let wrongKeys = document.getElementsByClassName('wrong');
+        chosenKeys = [...chosenKeys];
+        wrongKeys =[...wrongKeys];
+        
         chosenKeys.forEach( key =>{
             key.classList.remove('disabled', 'chosen');        
         })
@@ -125,6 +129,24 @@ class Game {
         wrongKeys.forEach( key =>{
             key.classList.remove('disabled', 'wrong');        
         })
+    }
+
+    resetOverlay(){
+        const overlayWin = document.getElementsByClassName('win')[0];
+        const overlayLose = document.getElementsByClassName('lose')[0];
+
+        overlayWin.classList.add('start');
+        overlayWin.classList.remove( 'win');
+
+        overlayLose.classList.add('start');
+        overlayLose.classList.remove('lose');
+    }
+
+    resetGame(){
+        game.resetPhrase();
+        game.resetHearts();
+        game.resetQwerty();
+        // game.resetOverlay();
     }
 
     /**
