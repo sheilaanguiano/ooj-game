@@ -2,26 +2,11 @@ class Game {
     constructor(){
         this.missed = 0;
         this.phrases = [
-            {
-                index: 0,
-                phrase: `hello test`
-            },
-            {
-                index: 1,
-                phrase: `Hola mi test`
-            },
-            {
-                index: 2,
-                phrase: `short test`
-            },
-            {
-                index: 3,
-                phrase: `Hello world`
-            },
-            {
-                index: 4,
-                phrase: `Helloween`
-            },
+            new Phrase ('Are you testing me'),
+            new Phrase ('Hola Test'),
+            new Phrase ('This is but a test'),
+            new Phrase ('Hello World'),
+            new Phrase ('Lorem Ipsun')
         ]
         this.activePhrase = null;
     }
@@ -30,15 +15,20 @@ class Game {
      * @return {Object} Phrase object chosen to be used
      */
     getRandomPhrase(phrases){
-        let phrase = game.phrases[Math.floor(Math.random() * game.phrases.length)];
-        return phrase;
+        let random = Math.floor(Math.random() * game.phrases.length);
+        return this.phrases[random];
     };
 
     /**
     * Begins game by selecting a random phrase and displaying it to user
     */
     startGame(){
-        this.activePhrase = new Phrase(this.getRandomPhrase().phrase); 
+        const overlay = document.getElementById('overlay');
+        
+        overlay.style.display ='none';
+        overlay.setAttribute('class', 'start');
+        
+        this.activePhrase = this.getRandomPhrase(); 
         this.activePhrase.addPhraseToDisplay(); 
     }
 
@@ -61,10 +51,15 @@ class Game {
     */
     removeLife(){
         const scoreboard = document.getElementsByTagName('ol')[0];
-        this.missed = scoreboard.children.length
+        
+        this.missed += 1
 
-        if(this.missed > 1){
-            scoreboard.lastElementChild.remove();
+        if(this.missed < 5){
+            scoreboard.firstElementChild.remove();
+            let li = document.createElement('LI');
+            li.innerHTML = `<li><img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30"><li>`;
+            scoreboard.append(li);
+   
         } else{
             game.gameOver(false);
         }
@@ -106,6 +101,9 @@ class Game {
     }
     resetHearts(){
         const scoreboard = document.getElementsByTagName('ol')[0];
+        this.missed = 0;
+
+        
 
         scoreboard.innerHTML = `
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
@@ -131,22 +129,14 @@ class Game {
         })
     }
 
-    resetOverlay(){
-        const overlayWin = document.getElementsByClassName('win')[0];
-        const overlayLose = document.getElementsByClassName('lose')[0];
-
-        overlayWin.classList.add('start');
-        overlayWin.classList.remove( 'win');
-
-        overlayLose.classList.add('start');
-        overlayLose.classList.remove('lose');
-    }
+   /**
+    * Call all the helper reset methods
+    */
 
     resetGame(){
         game.resetPhrase();
         game.resetHearts();
         game.resetQwerty();
-        // game.resetOverlay();
     }
 
     /**

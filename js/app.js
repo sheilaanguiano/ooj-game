@@ -5,14 +5,14 @@
 
 const game =new Game();
 const startBtn = document.getElementById('btn__reset');
-const overlay = document.getElementById('overlay');
+
 let keyBtns = document.querySelectorAll('button.key')
 keyBtns = [...keyBtns]
 
 
        
 startBtn.addEventListener('click', e => {
-    overlay.style.display ='none';
+   
     game.startGame();
 
     console.log(game.activePhrase);
