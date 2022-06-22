@@ -99,11 +99,11 @@ class Game {
         const phraseList = document.getElementsByTagName('UL')[0];
         phraseList.innerHTML = '';
     }
+
+
     resetHearts(){
         const scoreboard = document.getElementsByTagName('ol')[0];
         this.missed = 0;
-
-        
 
         scoreboard.innerHTML = `
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
@@ -113,6 +113,7 @@ class Game {
             <li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
        `;
     }
+
 
     resetQwerty(){
         let chosenKeys = document.getElementsByClassName('chosen');
@@ -158,7 +159,5 @@ class Game {
             clicked.classList.add('disabled', 'wrong');
             game.removeLife();
         }
-    };
-   
-    
+    };  
 }

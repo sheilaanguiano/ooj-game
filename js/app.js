@@ -10,13 +10,10 @@ let keyBtns = document.querySelectorAll('button.key')
 keyBtns = [...keyBtns]
 
 
-       
+// Start button event handler    
 startBtn.addEventListener('click', e => {
-   
     game.startGame();
 
-    console.log(game.activePhrase);
-    
 });
 
 /**
