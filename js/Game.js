@@ -122,11 +122,13 @@ class Game {
         wrongKeys =[...wrongKeys];
         
         chosenKeys.forEach( key =>{
-            key.classList.remove('disabled', 'chosen');        
+            key.removeAttribute('disabled');
+            key.classList.remove('chosen');        
         })
 
         wrongKeys.forEach( key =>{
-            key.classList.remove('disabled', 'wrong');        
+            key.removeAttribute('disabled');
+            key.classList.remove('wrong');        
         })
     }
 
@@ -149,14 +151,16 @@ class Game {
         let letter = button.target.innerText;
    
         if(game.activePhrase.checkLetter(letter)){
-            clicked.classList.add('disabled', 'chosen');
+            clicked.setAttribute('disabled', true);
+            clicked.classList.add('chosen');
             game.activePhrase.showMatchedLetter(letter);
             if(game.checkForWin()){
                 game.gameOver(true);
             }
                
         } else {
-            clicked.classList.add('disabled', 'wrong');
+            clicked.setAttribute('disabled', true);
+            clicked.classList.add('wrong');
             game.removeLife();
         }
     };  
